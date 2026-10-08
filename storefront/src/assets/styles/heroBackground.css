@@ -1,0 +1,168 @@
+/* ==========================================================
+   Hero background (.top-container) – interactive mesh that follows the cursor
+   Needs: useHeroPointer.js + the 3-line change in home.jsx (ref on the div).
+   Import LAST in main.jsx (after darkMood.css):
+       import './assets/styles/heroBackground.css'
+   Only touches background / animation / transition – margin, width and
+   padding from app.css / tablet.css / mobile.css keep working.
+
+   CSS variables set by the hook (safe fallbacks if JS hasn't run):
+     --cx / --cy  smoothed cursor position in px  -> spotlight
+     --dx / --dy  cursor offset from centre, -1..1 -> parallax depth
+   ========================================================== */
+
+@property --base  { syntax: '<color>'; inherits: false; initial-value: #E8F6EE; }
+@property --c1    { syntax: '<color>'; inherits: false; initial-value: rgba(159, 220, 185, 0.95); }
+@property --c2    { syntax: '<color>'; inherits: false; initial-value: rgba(254, 243, 199, 0.95); }
+@property --c3    { syntax: '<color>'; inherits: false; initial-value: rgba(189, 232, 207, 0.95); }
+@property --c4    { syntax: '<color>'; inherits: false; initial-value: rgba(180, 83, 9, 0.14); }
+@property --dot   { syntax: '<color>'; inherits: false; initial-value: rgba(60, 77, 60, 0.16); }
+@property --spot  { syntax: '<color>'; inherits: false; initial-value: rgba(255, 255, 255, 0.70); }
+@property --spot2 { syntax: '<color>'; inherits: false; initial-value: rgba(254, 243, 199, 0.45); }
+
+@property --mx1 { syntax: '<percentage>'; inherits: false; initial-value: 12%; }
+@property --my1 { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+@property --mx2 { syntax: '<percentage>'; inherits: false; initial-value: 88%; }
+@property --my2 { syntax: '<percentage>'; inherits: false; initial-value: 12%; }
+@property --mx3 { syntax: '<percentage>'; inherits: false; initial-value: 72%; }
+@property --my3 { syntax: '<percentage>'; inherits: false; initial-value: 92%; }
+@property --mx4 { syntax: '<percentage>'; inherits: false; initial-value: 18%; }
+@property --my4 { syntax: '<percentage>'; inherits: false; initial-value: 88%; }
+
+/* ---------- Light mode ---------- */
+div.top-container {
+    --base: #E8F6EE;
+    --c1: rgba(159, 220, 185, 0.95);
+    --c2: rgba(254, 243, 199, 0.95);
+    --c3: rgba(189, 232, 207, 0.95);
+    --c4: rgba(180, 83, 9, 0.14);
+    --dot: rgba(60, 77, 60, 0.16);
+    --spot: rgba(255, 255, 255, 0.70);
+    --spot2: rgba(254, 243, 199, 0.45);
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    /* 4 colour spots. They are 125% size so each one can slide with the cursor
+       at a different depth (some move with it, some against it) = parallax. */
+    background:
+        radial-gradient(circle at var(--mx1) var(--my1), var(--c1) 0, transparent 46%),
+        radial-gradient(circle at var(--mx2) var(--my2), var(--c2) 0, transparent 46%),
+        radial-gradient(circle at var(--mx3) var(--my3), var(--c3) 0, transparent 52%),
+        radial-gradient(circle at var(--mx4) var(--my4), var(--c4) 0, transparent 50%),
+        var(--base);
+    background-repeat: no-repeat;
+    background-size: 125% 125%, 125% 125%, 125% 125%, 125% 125%;
+    background-position:
+        calc(50% + var(--dx, 0) *  40px) calc(50% + var(--dy, 0) *  40px),
+        calc(50% + var(--dx, 0) * -30px) calc(50% + var(--dy, 0) * -30px),
+        calc(50% + var(--dx, 0) *  60px) calc(50% + var(--dy, 0) *  60px),
+        calc(50% + var(--dx, 0) * -50px) calc(50% + var(--dy, 0) * -50px);
+    animation: heroMesh 22s ease-in-out infinite alternate;
+
+    transition:
+        --base 0.9s ease, --c1 0.9s ease, --c2 0.9s ease, --c3 0.9s ease, --c4 0.9s ease,
+        --dot 0.9s ease, --spot 0.9s ease, --spot2 0.9s ease, color 0.6s ease;
+}
+
+/* ---------- Dots: drift on their own + shift opposite to the cursor ---------- */
+div.top-container::before {
+    content: "";
+    position: absolute;
+    inset: -40px;                      /* extra room so parallax never shows an edge */
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(var(--dot) 1.3px, transparent 1.7px);
+    background-size: 28px 28px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 65%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 65%, transparent 100%);
+    transform: translate3d(calc(var(--dx, 0) * -22px), calc(var(--dy, 0) * -22px), 0);
+    animation: heroDots 45s linear infinite;
+}
+
+/* ---------- Spotlight that follows the cursor ---------- */
+div.top-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(260px circle at var(--cx, 50%) var(--cy, 50%), var(--spot) 0, transparent 70%),
+        radial-gradient(560px circle at var(--cx, 50%) var(--cy, 50%), var(--spot2) 0, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.7s ease;     /* fades in when the cursor enters, out when it leaves */
+}
+
+div.top-container.is-pointer::after {
+    opacity: 1;
+}
+
+/* ---------- Dark mode ---------- */
+body.dark div.top-container {
+    --base: #0b110d;
+    --c1: rgba(0, 255, 170, 0.18);
+    --c2: rgba(226, 184, 112, 0.12);
+    --c3: rgba(0, 149, 255, 0.14);
+    --c4: rgba(126, 217, 168, 0.12);
+    --dot: rgba(216, 240, 229, 0.10);
+    --spot: rgba(0, 255, 170, 0.20);
+    --spot2: rgba(0, 149, 255, 0.10);
+
+    background:
+        radial-gradient(circle at var(--mx1) var(--my1), var(--c1) 0, transparent 46%),
+        radial-gradient(circle at var(--mx2) var(--my2), var(--c2) 0, transparent 46%),
+        radial-gradient(circle at var(--mx3) var(--my3), var(--c3) 0, transparent 52%),
+        radial-gradient(circle at var(--mx4) var(--my4), var(--c4) 0, transparent 50%),
+        var(--base);
+    background-repeat: no-repeat;
+    background-size: 125% 125%, 125% 125%, 125% 125%, 125% 125%;
+    background-position:
+        calc(50% + var(--dx, 0) *  40px) calc(50% + var(--dy, 0) *  40px),
+        calc(50% + var(--dx, 0) * -30px) calc(50% + var(--dy, 0) * -30px),
+        calc(50% + var(--dx, 0) *  60px) calc(50% + var(--dy, 0) *  60px),
+        calc(50% + var(--dx, 0) * -50px) calc(50% + var(--dy, 0) * -50px);
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes heroMesh {
+    0%   { --mx1: 12%; --my1: 20%; --mx2: 88%; --my2: 12%; --mx3: 72%; --my3: 92%; --mx4: 18%; --my4: 88%; }
+    50%  { --mx1: 35%; --my1: 55%; --mx2: 62%; --my2: 40%; --mx3: 45%; --my3: 70%; --mx4: 40%; --my4: 35%; }
+    100% { --mx1: 22%; --my1: 85%; --mx2: 80%; --my2: 70%; --mx3: 85%; --my3: 25%; --mx4: 10%; --my4: 30%; }
+}
+
+@keyframes heroDots {
+    from { background-position: 0 0; }
+    to   { background-position: 28px 28px; }
+}
+
+body {
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* ---------- Phones: mobile.css already makes the hero transparent ---------- */
+@media (max-width: 520px) {
+    div.top-container::before,
+    div.top-container::after {
+        display: none;
+    }
+}
+
+/* ---------- Touch screens have no hover: keep only the ambient animation ---------- */
+@media (hover: none) {
+    div.top-container::after {
+        display: none;
+    }
+}
+
+/* ---------- Respect "reduce motion" ---------- */
+@media (prefers-reduced-motion: reduce) {
+    div.top-container,
+    div.top-container::before {
+        animation: none;
+    }
+    div.top-container::after {
+        display: none;
+    }
+}

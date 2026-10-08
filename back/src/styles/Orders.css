@@ -1,0 +1,118 @@
+.orders-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.order-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.order-item-row .product-thumb {
+  width: 28px;
+  height: 28px;
+}
+.order-item-info {
+  flex: 1;
+}
+.order-item-name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+.order-item-meta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.order-item-price {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.order-customer-line {
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+
+.order-status-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.order-total-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.order-total-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.order-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-receipt-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.order-receipt-brand img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.print-order-number {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  .drawer-overlay,
+  .drawer-overlay * {
+    visibility: visible !important;
+  }
+
+  .drawer-overlay {
+    position: static !important;
+    background: transparent !important;
+  }
+
+  .drawer-panel {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    box-sDHow: none !important;
+    border: 0 !important;
+    overflow: visible !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-order-number {
+    display: inline;
+    font-weight: 400;
+  }
+}

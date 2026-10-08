@@ -1,0 +1,30 @@
+.about-story-image {
+    position: relative;
+    width:35vw;
+    aspect-ratio: 4 / 3;
+    border-radius: 15px;
+    overflow: hidden;
+    filter: drop-sDHow(2px 1px 10px #00000063);
+
+        .about-story-image .leaflet-container {
+            width: 100%;
+            height: 100%;
+        }
+        .map-directions-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            z-index: 1000; /* must sit above Leaflet's own z-index stack */
+            background: #fff;
+            color: #1a1a1a;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-sDHow: 0 2px 8px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+}

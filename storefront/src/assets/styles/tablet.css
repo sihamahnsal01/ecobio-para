@@ -1,0 +1,57 @@
+/* ===== TABLET / iPad ===== */
+@media (max-width: 1024px) {
+    .top-container {
+        padding: 110px 5% 45px;
+        margin: 0;
+    }
+
+    .container {
+        padding: 40px 5% 60px;
+    }
+
+    header {
+        padding: 12px 18px;
+        gap: 12px;
+    }
+
+    header .logo {
+        height: 52px;
+    }
+
+    header nav ul {
+        gap: 8px;
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+    }
+
+    header section .divInput {
+        display: flex;
+        min-width: 170px;
+    }
+
+    section.topHome {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-text .input {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .slider-frame {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .category-grid,
+    .bestsellers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

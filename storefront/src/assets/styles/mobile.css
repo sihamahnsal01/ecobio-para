@@ -1,0 +1,340 @@
+@media (max-width: 850px) {
+    body {
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    header {
+        padding: 12px 15px;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+            .logo {
+                height: 46px;
+                position: static;
+            }.hamburger {
+                display: block;
+                order: 2;
+                font-size: 1.2rem;
+            }nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: min(80vw, 280px);
+                background-color: var(--green-Primery);
+                box-sDHow: 2px 0 12px rgba(0, 0, 0, 0.18);
+                transform: translateX(-105%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 200;
+                padding-top: 70px;
+            }nav.open {
+                transform: translateX(0);
+            }nav ul {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 0 18px;
+                width: 100%;
+            }nav ul li {
+                width: 100%;
+                text-align: left;
+            }section {
+                margin-left: auto;
+                gap: 10px;
+            }section .divInput {
+                display: flex;
+                order: 4;
+                flex: 1 0 100%;
+                width: 100%;
+                box-sizing: border-box;
+            }section .divInput input {
+                min-width: 0;
+                width: 100%;
+            }.top-container {
+                padding: 100px 5% 35px;
+                margin: 0;
+            }section.topHome {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }.hero-text {
+                max-width: 100%;
+                text-align: center;
+            }.badge {
+                font-size: 0.7rem;
+                padding: 8px 12px;
+                line-height: 1.5;
+            }.hero-text h1 {
+                font-size: clamp(2.1rem, 7vw, 3rem);
+            }.prd {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 18px;
+            }.input {
+                flex-direction: column;
+                width: 100%;
+            }.input a,
+            .btn-shop,
+            .btn-advice {
+                width: 100%;
+                justify-content: center;
+            }.slider-frame {
+                display: block;
+                width: 100%;
+                max-width: 460px;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+}
+
+    .bestsellers-header,
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bestsellers-grid,
+    .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    footer img{
+        height: 100px;
+        width: 40%;
+    }
+}
+
+@media (max-width: 520px) {
+    div#root{
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    .container,
+    .bestsellers-section,
+    section.category-section {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .bestsellers-grid,
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    header{
+        width: 100vw;
+        position: relative;
+    }
+    header img{
+        display: none;
+    }
+
+    /* FIX #1: removed the space before :not(.expanded) so this targets
+       the <form class="divInput"> element itself, not its descendants */
+    header section form.divInput:not(.expanded){
+        border: none;
+        width: 36px !important;
+        height: 36px !important;
+        max-width: 36px !important;
+        flex: 0 0 36px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+        justify-content: center !important;
+        transition: all 0.3s ease !important;
+
+        input {
+            display: none;
+            width: 0;
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, width 0.3s ease;
+        }
+    }
+
+    /* Expanded state when clicked or focused on mobile */
+    header section form.divInput.expanded {
+        position: absolute;
+        left: 12%;
+        width: 85vw;
+        height: 40px;
+        z-index: 1001;
+        background-color: #ffffff;
+        padding: 0 10px;
+        filter: drop-sDHow(1px 1px 5px #0000001f);
+
+        input {
+            /* FIX #2: explicitly restore display + visible state so it
+               overrides the :not(.expanded) hidden rule above */
+            display: block;
+            position: absolute;
+            right: 18%;
+            width: 250px;
+            opacity: 1;
+            visibility: visible;
+        }
+        i {
+            position: relative;
+            left: 87%;
+        }
+    }
+
+    header {
+        /* FIX #3: removed the old unscoped `form.divInput { input { display:none } }`
+           block that was permanently hiding the input regardless of .expanded.
+           That rule is now redundant with the :not(.expanded) rule above,
+           so only the icon-position rule is kept here. */
+        form.divInput {
+            border: none !important;
+            border-radius: none;
+
+            i {
+                position: absolute;
+                right: 23%;
+            }
+        }
+        div.hamburger{
+            position: absolute;
+            left: 5%;
+        }
+        div.divMood{
+            position: absolute;
+            right: 12%;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        div.divOrder{
+            position: absolute;
+            right: 60%;
+        }
+        i.fa-xmark{
+            display: flex;
+            position: fixed;
+            top: 60%;
+            left: 45%;
+            z-index: 1002; /* Keeps it layered above nav.open */
+            color: var(--darckGreen-sacendery);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    }
+
+    /* In light mode: hide sun icon, show moon icon */
+    body.light header section div.divMood .LightMood_icon {
+        display: none !important;
+    }
+    body.light header section div.divMood .Darkmood_icon {
+        display: flex !important;
+    }
+
+    /* In dark mode: hide moon icon, show sun icon */
+    body.dark header section div.divMood .Darkmood_icon {
+        display: none !important;
+    }
+    body.dark header section div.divMood .LightMood_icon {
+        display: flex !important;
+    }
+    header nav.open ~ section form.divInput.expanded {
+    display: none !important;
+}
+    nav.open {
+        overflow: hidden;
+    li{
+        padding: 3% 10%;
+        width: 65%;
+
+        &:hover{
+            background-color: var(--darckGreen-sacendery);
+
+            a{
+                background-color: var(--darckGreen-sacendery);
+                color: var(--bestseller-background);
+                font-weight: bold;
+                transition: 0.4s ease-in-out;
+                padding: 5px 10px;
+                border-radius: 15px;
+            }
+        }
+    }        
+    }
+
+        div.container{
+            div.top-container{
+                margin: -130px 0 0 -30px;
+                background: transparent;
+            }
+            section.topHome{
+                display: block;
+                .hero-text{
+                    background-color: var(--green-Primery);
+                    padding: 5%;
+                    .badge{
+                        display: none;
+                    }
+                    h1{
+                        font-size: medium;
+                    &::after {
+                    content: "Eco&Bio - para";
+                    display: block;
+                    font-size: 1.9rem;
+                    font-weight: 600;
+                    color: black;
+                    margin-bottom: 5px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    }    
+                    }.subtext{
+                        font-size: 0.8rem;
+                    }.prd{
+                        display: none;
+                    }
+
+
+                }
+                .slider-frame{
+                    margin: 5% auto -50px;
+                    width: 80vw;
+                }
+            }
+            section.category-section{
+                padding: 0;
+                position: relative;
+                div.category-header{
+                    div{
+                        margin-right: 70px;
+                    h2{
+                        font-size: 1.5rem;
+                }                    
+                }                        
+                    }
+            }
+            }
+    footer{
+
+    }
+        
+}

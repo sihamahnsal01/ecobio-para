@@ -1,0 +1,54 @@
+html{
+    scroll-behavior: smooth;
+}
+.block {
+    opacity: 0;
+    transform: translateY(42px);
+}
+
+.block.in-view {
+    animation: blockReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes blockReveal {
+    from {
+        opacity: 0;
+        transform: translateY(42px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* People who've asked their OS/browser for less motion get content
+   immediately, with no animation. */
+@media (prefers-reduced-motion: reduce) {
+    .block {
+        opacity: 1;
+        transform: none;
+    }
+    .block.in-view {
+        animation: none;
+    }
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+   /* Small, global micro-interactions */
+   button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled):active,
+.btn-shop:active,
+.btn-advice:active,
+.add-btn:not(:disabled):active,
+.promo-cta:active {
+    transform: scale(0.95);
+}
+
+img {
+    transition: filter 0.3s ease;
+}

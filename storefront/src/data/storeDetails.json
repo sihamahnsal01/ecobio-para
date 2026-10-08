@@ -1,0 +1,54 @@
+{
+  "name": "Eco&Bio - para",
+  "tagline": "Parapharmacie",
+  "description": "",
+
+  "address": {
+    "line1": "No 151",
+    "line2": "Askjour Lot Roumia",
+    "city": "Marrakech",
+    "postalCode": "40000",
+    "country": "Morocco",
+    "lat": 31.58697979868123,
+    "lng": -8.053538788226378
+  },
+
+  "contact": {
+    "phone": "+212 673-534182",
+    "whatsapp": "+212 673-534182",
+    "email": "info@ecobio-para.ma"
+  },
+
+  "hours": {
+    "monday": "09:00-19:30",
+    "tuesday": "09:00-19:30",
+    "wednesday": "09:00-19:30",
+    "thursday": "09:00-19:30",
+    "friday": "09:00-19:30",
+    "saturday": "09:00-19:30",
+    "sunday": "Closed"
+  },
+
+  "ownerName": "Ibtissam",
+  "developer": "siham ahnsal",
+
+  "social": {
+    "instagramURL": "https://www.instagram.com/ecobiopara/",
+    "facebookURL": "https://www.facebook.com/people/Eco-bio-para/100071689925915/",
+    "tiktokURL": ""
+  },
+
+  "branding": {
+    "logoUrl": "/assets/logo/eco-bio-para-recolored.svg",
+    "iconLogo":"",
+    "primaryColor": "#3C4D3C",
+    "secondaryColor": "#D8F0E5",
+    "accentColor": "#B45309",
+    "backgroundColor": "#FEF3C7"
+  },
+
+  "settings": {
+    "currency": "MAD",
+    "language": "fr"
+  }
+}
