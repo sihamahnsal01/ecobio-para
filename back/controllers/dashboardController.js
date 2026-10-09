@@ -11,7 +11,8 @@ export const getDashboardSummary = asyncHandler(async (req, res) => {
     const orders = await Order.find({}).sort({ createdAt: -1 })
 
     const totalOrders = orders.length
-    const revenue = orders.reduce((sum, o) => sum + o.total, 0)
+    // Cancelled orders are not revenue (same rule as Analytics and the Sales history page).
+    const revenue = orders.filter((o) => o.status !== 'cancelled').reduce((sum, o) => sum + o.total, 0)
 
     const newCustomers = await User.countDocuments({
         role: 'customer',
@@ -48,7 +49,7 @@ export const getDashboardSummary = asyncHandler(async (req, res) => {
     const recentOrders = orders.slice(0, 5).map((o) => ({
         _id: o._id,
         orderNumber: o._id.toString().slice(-6).toUpperCase(),
-        customer: { name: o.shippingAddress?.fullName || 'Guest' },
+        customer: { name: o.shippingAddress?.name || 'Guest' },
         createdAt: o.createdAt,
         fulfillmentStatus: STATUS_LABELS[o.status] || 'Unfulfilled',
         totalAmount: o.total,

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useCart } from './CartContext.jsx'
+import WishlistButton from './WishlistButton.jsx'
 import api from '../api/client.js'
 import { ASSET_BASE_URL } from '../utils/apiBase.js'
 import '../assets/styles/bestSllers.css'
@@ -62,6 +63,7 @@ function BestSellers() {
                 {liveProducts.map((product) => (
                     <div className="product-card block={true}" key={product._id || product.id}>
                         <div className="product-image-wrap">
+                            <WishlistButton product={product} />
                             {Number(product.stock) <= 0 ? (
                                 <span className="badge-out-of-stock">Out of stock</span>
                             ) : (

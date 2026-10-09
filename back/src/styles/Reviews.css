@@ -1,0 +1,65 @@
+/* Replies under a review in the admin Reviews page */
+.review-meta-line { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+
+.review-thread {
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.review-reply {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--bg-page);
+}
+.review-reply.staff { background: var(--brand-green-light); }
+.review-reply-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+}
+.review-reply-head strong { color: var(--text-primary); }
+.review-reply p { margin: 4px 0 0; font-size: 14px; color: var(--text-primary); white-space: pre-line; }
+.review-staff-badge {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--brand-green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+.review-reply-delete {
+  margin-left: auto;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.review-reply-delete:hover { color: var(--status-red-text); }
+
+.review-reply-form { display: flex; gap: 8px; align-items: flex-end; }
+.review-reply-form textarea {
+  flex: 1;
+  min-height: 38px;
+  padding: 8px 10px;
+  resize: vertical;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+}
+.review-reply-form textarea:focus { outline: none; border-color: var(--brand-green); }
+
+/* Analytics: visitors / engagement */
+.range-select { padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card); font: inherit; }
+.share-bar { height: 8px; min-width: 120px; border-radius: 999px; background: var(--status-gray-bg); overflow: hidden; }
+.share-bar > span { display: block; height: 100%; border-radius: 999px; background: var(--brand-green); }
+.country-code { display: inline-block; min-width: 30px; padding: 1px 8px; border-radius: 6px; background: var(--brand-green-light); color: var(--brand-green-dark); font-size: 12px; font-weight: 700; text-align: center; }
+.visits-bars { display: flex; align-items: flex-end; gap: 4px; height: 90px; padding: 8px 20px 4px; }
+.visits-bars > div { flex: 1; min-width: 6px; border-radius: 4px 4px 0 0; background: var(--brand-green); opacity: 0.85; }
+.analytics-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 900px) { .analytics-two-col { grid-template-columns: 1fr; } }

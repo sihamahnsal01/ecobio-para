@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../api/AuthContext.jsx'
 import '../assets/styles/Account.css'
+import '../assets/styles/Community.css'
 
 function Account() {
     const { user, loading, login, register } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
-    const [mode, setMode] = useState('login')
+    const [mode, setMode] = useState(location.state?.mode === 'register' ? 'register' : 'login')
     const [form, setForm] = useState({ name: '', email: '', password: '', phone: '' })
     const [error, setError] = useState('')
     const [submitting, setSubmitting] = useState(false)
@@ -34,6 +35,7 @@ function Account() {
             <form className="account-card" onSubmit={submit}>
                 <span className="account-eyebrow">Eco&amp;Bio account</span>
                 <h1>{mode === 'login' ? 'Sign in' : 'Create your account'}</h1>
+                {location.state?.notice && !error && <p className="account-notice">{location.state.notice}</p>}
                 {error && <p className="account-error">{error}</p>}
                 {mode === 'register' && <input name="name" placeholder="Full name" value={form.name} onChange={update} required />}
                 <input name="email" type="email" placeholder="Email address" value={form.email} onChange={update} required />

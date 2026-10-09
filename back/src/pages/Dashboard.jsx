@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import api from '../api/client.js'
 import StatusPill from '../components/StatusPill.jsx'
 import SalesChart from '../components/SalesChart.jsx'
 import OrderFunnel from '../components/OrderFunnel.jsx'
 import '../styles/Dashboard.css'
+import '../styles/SalesHistory.css'
 
 function Dashboard() {
   const [data, setData] = useState(null)
@@ -23,7 +25,12 @@ function Dashboard() {
     <div className="dashboard">
       <div className="stat-cards">
         <div className="card stat-card">
-          <p className="stat-label">Total Orders</p>
+          <div className="stat-label-row">
+            <p className="stat-label">Total Orders</p>
+            <Link to="/orders" className="see-more-link">
+              See more <i className="fa-solid fa-arrow-right"></i>
+            </Link>
+          </div>
           <p className="stat-value">{data.totalOrders}</p>
         </div>
         <div className="card stat-card">
@@ -31,15 +38,23 @@ function Dashboard() {
           <p className="stat-value">{data.revenue.toFixed(2)} DH</p>
         </div>
         <div className="card stat-card">
-          <p className="stat-label">New Customers</p>
+          <div className="stat-label-row">
+            <p className="stat-label">New Customers</p>
+            <Link to="/customers" className="see-more-link">
+              See more <i className="fa-solid fa-arrow-right"></i>
+            </Link>
+          </div>
           <p className="stat-value">{data.newCustomers}</p>
         </div>
       </div>
 
       <div className="dashboard-grid">
         <div className="card chart-card">
-          <div className="card-header">
+          <div className="card-header card-header-row">
             <h3>Sales Performance (Last 30 Days)</h3>
+            <Link to="/sales-history" className="see-more-link">
+              See more <i className="fa-solid fa-arrow-right"></i>
+            </Link>
           </div>
           <SalesChart data={data.salesPerformance} />
         </div>

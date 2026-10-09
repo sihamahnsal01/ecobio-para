@@ -23,6 +23,8 @@ import notificationRoutes from './routes/notificationRoutes.js'
 import adminUserRoutes from './routes/adminUserRoutes.js'
 import subscriberRoutes from './routes/subscriberRoutes.js'
 import reviewRoutes from './routes/reviewRoutes.js'
+import wishlistRoutes from './routes/wishlistRoutes.js'
+import statsRoutes from './routes/statsRoutes.js'
 import { handleStripeWebhook } from './controllers/orderController.js'
 import { startOrderExpirySweeper } from './utils/orderExpiry.js'
 
@@ -55,6 +57,8 @@ app.use('/api/notifications', notificationRoutes)
 app.use('/api/admin-users', adminUserRoutes)
 app.use('/api/subscribers', subscriberRoutes)
 app.use('/api/reviews', reviewRoutes)
+app.use('/api/wishlist', wishlistRoutes)
+app.use('/api/stats', statsRoutes)
 
 // --- Root Route ---
 app.get('/', (req, res) => {

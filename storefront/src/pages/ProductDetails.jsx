@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useCart } from '../components/CartContext.jsx'
-import { useWishlist } from '../components/WishlistContext.jsx'
+import { useWishlist, wishlistAuthState } from '../components/WishlistContext.jsx'
 import ReviewSection from '../components/ReviewSection.jsx'
 import api from '../api/client.js'
 import { ASSET_BASE_URL } from '../utils/apiBase.js'
@@ -37,6 +37,8 @@ function ProductDetails() {
   const { id } = useParams()
   const { addToCart } = useCart()
   const { isWishlisted, toggleWishlist } = useWishlist()
+  const navigate = useNavigate()
+  const location = useLocation()
   const [product, setProduct] = useState(null)
   const [allProducts, setAllProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -150,6 +152,10 @@ function ProductDetails() {
   const reviewCount = Number(product.reviews) || 0
   const inStock = Number(product.stock) > 0
   const wishlisted = isWishlisted(product)
+  const handleWishlist = async () => {
+    const result = await toggleWishlist(product)
+    if (result?.reason === 'auth') navigate('/account', { state: wishlistAuthState(location.pathname) })
+  }
 
   const hasDiscount = product.oldPrice && Number(product.oldPrice) > Number(product.price || 0)
   const discountPercent = hasDiscount
@@ -271,7 +277,7 @@ function ProductDetails() {
             <button
               type="button"
               className={`detail-btn wishlist${wishlisted ? ' active' : ''}`}
-              onClick={() => toggleWishlist(product)}
+              onClick={handleWishlist}
             >
               {wishlisted ? '❤️ In wishlist' : '🤍 Add to wishlist'}
             </button>

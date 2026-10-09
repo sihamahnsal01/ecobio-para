@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useCart } from '../components/CartContext.jsx'
+import WishlistButton from '../components/WishlistButton.jsx'
 import api from '../api/client.js'
 import { ASSET_BASE_URL } from '../utils/apiBase.js'
 import '../assets/styles/Products.css'
@@ -262,6 +263,7 @@ function Products() {
                 return (
                   <div className="product-card" key={id}>
                     <div className="product-image">
+                      <WishlistButton product={p} />
                       {Number(p.stock) <= 0 ? (
                         <span className="badge badge-out-of-stock">OUT OF STOCK</span>
                       ) : tags.includes('Bestseller') && (

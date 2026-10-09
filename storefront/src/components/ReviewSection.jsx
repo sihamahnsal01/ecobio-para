@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import api from '../api/client.js'
+import { useAuth } from '../api/AuthContext.jsx'
 import { ASSET_BASE_URL } from '../utils/apiBase.js'
 import '../assets/styles/ReviewSection.css'
 
@@ -36,7 +38,10 @@ function ReviewSection({ productId }) {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
 
-  const [name, setName] = useState('')
+  const { user } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const name = user?.name || ''
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState('')
   const [image, setImage] = useState('')
@@ -62,6 +67,16 @@ function ReviewSection({ productId }) {
     }
   }, [productId])
 
+  const openForm = () => {
+    if (user) {
+      setShowForm(true)
+      return
+    }
+    navigate('/account', {
+      state: { from: location.pathname, mode: 'register', notice: 'Create an account or sign in to write a review.' },
+    })
+  }
+
   const handleImagePick = () => fileInputRef.current?.click()
 
   const handleImageChange = async (e) => {
@@ -84,8 +99,8 @@ function ReviewSection({ productId }) {
     e.preventDefault()
     setFormError('')
 
-    if (!name.trim() || !comment.trim()) {
-      setFormError('Please add your name and a comment.')
+    if (!comment.trim()) {
+      setFormError('Please write a comment.')
       return
     }
 
@@ -100,7 +115,6 @@ function ReviewSection({ productId }) {
       })
       setSubmitted(true)
       setShowForm(false)
-      setName('')
       setRating(5)
       setComment('')
       setImage('')
@@ -116,7 +130,7 @@ function ReviewSection({ productId }) {
       <div className="review-section-header">
         <h3>Customer Reviews {reviews.length > 0 && `(${reviews.length})`}</h3>
         {!showForm && !submitted && (
-          <button type="button" className="detail-btn secondary" onClick={() => setShowForm(true)}>
+          <button type="button" className="detail-btn secondary" onClick={openForm}>
             Write a review
           </button>
         )}
@@ -135,10 +149,7 @@ function ReviewSection({ productId }) {
             <StarPicker value={rating} onChange={setRating} />
           </div>
 
-          <div className="field">
-            <label>Your name</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
+          <p className="muted-text">Posting as <strong>{name}</strong></p>
 
           <div className="field">
             <label>Your review</label>

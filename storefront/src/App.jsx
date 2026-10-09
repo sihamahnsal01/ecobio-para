@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './app.css'
 import CookieConsent from './components/CookieConsent'
@@ -12,9 +13,14 @@ import Footer from './components/Footer.jsx'
 import PrivacyPolicy from './pages/privacy-policy.jsx'
 import Account from './pages/Account.jsx'
 import Orders from './pages/Orders.jsx'
+import Wishlist from './pages/Wishlist.jsx'
+import Reviews from './pages/Reviews.jsx'
+import { trackVisit } from './utils/stats.js'
 import MotionEffects from './components/MotionEffects.jsx'
 
 function App() {
+  useEffect(() => { trackVisit() }, [])
+
   return (
       <>
         <BrowserRouter>
@@ -30,6 +36,8 @@ function App() {
               <Route path='//AboutUs' element={<About />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/reviews" element={<Reviews />} />
               <Route path="/orders" element={<Orders />}
               />
           </Routes>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../api/client.js'
 import '../styles/Products.css'
+import '../styles/Reviews.css'
 
 const STATUS_TABS = [
   { value: '', label: 'All' },
@@ -32,6 +33,8 @@ function Reviews() {
   const [statusFilter, setStatusFilter] = useState('pending')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [drafts, setDrafts] = useState({})
+  const [sendingId, setSendingId] = useState('')
 
   const load = () => {
     setLoading(true)
@@ -62,6 +65,39 @@ function Reviews() {
     try {
       await api.del(`/reviews/${review._id}`)
       setReviews((prev) => prev.filter((r) => r._id !== review._id))
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
+  // Staff reply: shown to customers with an "Eco&Bio team" badge.
+  const sendReply = async (review) => {
+    const text = (drafts[review._id] || '').trim()
+    if (!text) return
+    setSendingId(review._id)
+    setError('')
+    try {
+      const reply = await api.post(`/reviews/${review._id}/replies`, { text })
+      setReviews((prev) =>
+        prev.map((r) => (r._id === review._id ? { ...r, replies: [...(r.replies || []), reply] } : r))
+      )
+      setDrafts((prev) => ({ ...prev, [review._id]: '' }))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSendingId('')
+    }
+  }
+
+  const removeReply = async (review, reply) => {
+    if (!window.confirm('Delete this reply?')) return
+    try {
+      await api.del(`/reviews/${review._id}/replies/${reply._id}`)
+      setReviews((prev) =>
+        prev.map((r) =>
+          r._id === review._id ? { ...r, replies: (r.replies || []).filter((x) => x._id !== reply._id) } : r
+        )
+      )
     } catch (err) {
       setError(err.message)
     }
@@ -101,7 +137,7 @@ function Reviews() {
                 </div>
                 <div className="notification-body">
                   <p className="notification-message">
-                    <strong>{review.name}</strong> on{' '}
+                    <strong>{review.user?.name || review.name}</strong> on{' '}
                     <strong>{review.product?.name || 'Unknown product'}</strong>
                   </p>
                   <Stars rating={review.rating} />
@@ -113,9 +149,50 @@ function Reviews() {
                       className="review-thumb"
                     />
                   )}
-                  <p className="muted-text">
-                    {new Date(review.createdAt).toLocaleDateString()} · status: {review.status}
+                  <p className="muted-text review-meta-line">
+                    <span>{new Date(review.createdAt).toLocaleDateString()}</span>
+                    <span>status: {review.status}</span>
+                    {review.user?.email && <span>{review.user.email}</span>}
+                    <span>{review.likesCount || 0} helpful</span>
                   </p>
+
+                  <div className="review-thread">
+                    {(review.replies || []).map((reply) => (
+                      <div key={reply._id} className={`review-reply${reply.isStaff ? ' staff' : ''}`}>
+                        <div className="review-reply-head">
+                          <strong>{reply.user?.name || 'Customer'}</strong>
+                          {reply.isStaff && <span className="review-staff-badge">Eco&amp;Bio team</span>}
+                          <span className="muted-text">{new Date(reply.createdAt).toLocaleDateString()}</span>
+                          <button
+                            type="button"
+                            className="review-reply-delete"
+                            onClick={() => removeReply(review, reply)}
+                            aria-label="Delete reply"
+                          >
+                            <i className="fa-regular fa-trash-can"></i>
+                          </button>
+                        </div>
+                        <p>{reply.text}</p>
+                      </div>
+                    ))}
+
+                    <div className="review-reply-form">
+                      <textarea
+                        rows={1}
+                        maxLength={500}
+                        placeholder="Reply as Eco&Bio team…"
+                        value={drafts[review._id] || ''}
+                        onChange={(e) => setDrafts((prev) => ({ ...prev, [review._id]: e.target.value }))}
+                      />
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        disabled={sendingId === review._id || !(drafts[review._id] || '').trim()}
+                        onClick={() => sendReply(review)}
+                      >
+                        {sendingId === review._id ? 'Sending…' : 'Reply'}
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div className="review-actions">
                   {review.status !== 'approved' && (

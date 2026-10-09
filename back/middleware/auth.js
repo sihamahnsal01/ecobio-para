@@ -25,6 +25,9 @@ export async function protect(req, res, next) {
 
         next()
     } catch (err) {
+        // Diagnostic: shows the REAL reason in the API terminal
+        // (e.g. 'TokenExpiredError jwt expired', 'JsonWebTokenError invalid signature', or a MongoDB error).
+        console.error('[auth] token check failed ->', err.name + ':', err.message)
         return res.status(401).json({ message: 'Not authorized, invalid or expired token' })
     }
 }

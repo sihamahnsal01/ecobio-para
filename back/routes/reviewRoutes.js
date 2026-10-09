@@ -2,6 +2,10 @@ import express from 'express'
 import {
     createReview,
     getProductReviews,
+    getReviewFeed,
+    toggleReviewLike,
+    addReply,
+    deleteReply,
     getAllReviews,
     updateReviewStatus,
     deleteReview,
@@ -10,9 +14,17 @@ import { protect, managerOrAdmin, optionalAuth } from '../middleware/auth.js'
 
 const router = express.Router()
 
+// public
 router.get('/product/:productId', getProductReviews)
-router.post('/', optionalAuth, createReview)
+router.get('/feed', optionalAuth, getReviewFeed)
 
+// signed-in customers (and staff)
+router.post('/', protect, createReview)
+router.post('/:id/like', protect, toggleReviewLike)
+router.post('/:id/replies', protect, addReply)
+router.delete('/:id/replies/:replyId', protect, deleteReply)
+
+// admin dashboard
 router.get('/', protect, managerOrAdmin, getAllReviews)
 router.patch('/:id/status', protect, managerOrAdmin, updateReviewStatus)
 router.delete('/:id', protect, managerOrAdmin, deleteReview)

@@ -1,10 +1,13 @@
 // Footer.jsx
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import '../assets/styles/Footer.css'
 import storeDetails from '../data/storeDetails.json'
 import api from '../api/client.js'
 import { useAuth } from '../api/AuthContext.jsx'
+import { useWishlist } from './WishlistContext.jsx'
+import { detectCountry, countryName } from '../utils/country.js'
+import '../assets/styles/Community.css'
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 const DAY_LABELS = {
@@ -42,6 +45,9 @@ function groupHours(hours) {
 function Footer() {
     const { user, logout } = useAuth()
     const [categories, setCategories] = useState([])
+    const { wishlistCount } = useWishlist()
+    const countryCode = useMemo(() => detectCountry(user), [user])
+    const countryLabel = countryName(countryCode)
 
     useEffect(() => {
         let cancelled = false
@@ -175,9 +181,23 @@ function Footer() {
                     Certified products &middot; Secure payments &middot; Fast delivery
                 </p>
                 <div className="footer-icons">
-                    <button aria-label="Wishlist"><i className="fa-regular fa-heart"></i></button>
-                    <button aria-label="Language"><i className="fa-solid fa-globe"></i></button>
-                    <button aria-label="Support chat"><i className="fa-regular fa-message"></i></button>
+                    <NavLink to="/wishlist" className="footer-icon-btn" aria-label="My wishlist" title="My wishlist">
+                        <i className="fa-regular fa-heart"></i>
+                        {wishlistCount > 0 && (
+                            <span className="footer-icon-count">{wishlistCount > 99 ? '99+' : wishlistCount}</span>
+                        )}
+                    </NavLink>
+                    <span
+                        className="footer-icon-btn footer-country"
+                        title={countryLabel ? `Your country: ${countryLabel}` : 'Your country'}
+                        aria-label={countryLabel ? `Your country: ${countryLabel}` : 'Your country'}
+                    >
+                        <i className="fa-solid fa-globe"></i>
+                        {countryCode && <b>{countryCode}</b>}
+                    </span>
+                    <NavLink to="/reviews" className="footer-icon-btn" aria-label="Customer reviews" title="Customer reviews">
+                        <i className="fa-regular fa-message"></i>
+                    </NavLink>
                 </div>
             </div>
         </footer>

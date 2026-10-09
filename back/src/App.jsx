@@ -5,6 +5,7 @@ import Topbar from './components/Topbar.jsx'
 import Login from './pages/Login.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Orders from './pages/Orders.jsx'
+import SalesHistory from './pages/SalesHistory.jsx'
 import Products from './pages/Products.jsx'
 import Inventory from './pages/Inventory.jsx'
 import Categories from './pages/Categories.jsx'
@@ -20,6 +21,8 @@ import Analytics, {
   AnalyticsCustomers,
   AnalyticsProducts,
   AnalyticsCategories,
+  AnalyticsVisitors,
+  AnalyticsEngagement,
 } from './pages/Analytics.jsx'
 import './styles/layout.css'
 
@@ -55,6 +58,14 @@ function App() {
         element={
           <Protected title="Dashboard Overview">
             <Dashboard />
+          </Protected>
+        }
+      />
+      <Route
+        path="/sales-history"
+        element={
+          <Protected title="Sales History">
+            <SalesHistory />
           </Protected>
         }
       />
@@ -135,6 +146,8 @@ function App() {
         <Route path="customers" element={<AnalyticsCustomers />} />
         <Route path="products" element={<AnalyticsProducts />} />
         <Route path="categories" element={<AnalyticsCategories />} />
+        <Route path="visitors" element={<AnalyticsVisitors />} />
+        <Route path="engagement" element={<AnalyticsEngagement />} />
       </Route>
       <Route
         path="/reports"
