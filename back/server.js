@@ -31,10 +31,23 @@ import { startOrderExpirySweeper } from './utils/orderExpiry.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const app = express()
+app.set('trust proxy', 1) // needed on Render so image links use https
 // --- Database ---
 connectDB()
 // --- Middleware ---
-app.use(cors())
+
+// Only allow our own websites (listed in CLIENT_ORIGIN in .env) to call the API
+const allowedOrigins = (process.env.CLIENT_ORIGIN || '')
+  .split(',')
+  .map((o) => o.trim())
+
+  app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true)
+    cb(new Error('Not allowed by CORS'))
+  },
+}))
+
 app.post('/api/orders/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
 app.use(express.json())
 
