@@ -99,6 +99,20 @@ div.top-container.is-pointer::after {
     opacity: 1;
 }
 
+/* The colour variables are registered with `inherits: false`, so the dots and
+   the spotlight layers need their colours set on themselves (otherwise they
+   always fall back to the light-mode values, e.g. a bright white glow in dark mode). */
+div.top-container::before { --dot: rgba(60, 77, 60, 0.16); }
+div.top-container::after {
+    --spot: rgba(255, 255, 255, 0.70);
+    --spot2: rgba(254, 243, 199, 0.45);
+}
+body.dark div.top-container::before { --dot: rgba(216, 240, 229, 0.08); }
+body.dark div.top-container::after {
+    --spot: rgba(126, 217, 168, 0.09);     /* just a soft green light */
+    --spot2: rgba(126, 217, 168, 0.04);
+}
+
 /* ---------- Dark mode ---------- */
 body.dark div.top-container {
     --base: #0b110d;

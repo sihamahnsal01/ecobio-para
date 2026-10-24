@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="//unpkg.com/supersimpledev/dayjs.js"></script>
     <title>Eco&Bio - para</title>
+    <script>
+      // Pick the splash colours before anything renders (same rule as components/theme.jsx).
+      try {
+        var t = localStorage.getItem('ecobio_theme') ||
+          (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (t === 'dark') document.documentElement.classList.add('dark-boot');
+      } catch (e) {}
+    </script>
     <style>
       /* ---- Splash / loading screen (shows instantly, before React loads) ---- */
       #app-loader{
@@ -17,6 +25,11 @@
         animation:loaderBg 8s ease infinite;
         transition:opacity .6s ease, visibility .6s ease;
       }
+      .dark-boot, .dark-boot body{ background:#0F1612; }
+      .dark-boot #app-loader{ background:linear-gradient(-45deg,#0F1612,#16261d,#1D2E24,#0F1612); background-size:300% 300%; }
+      .dark-boot #app-loader .loader-name{ color:#E3ECE5; }
+      .dark-boot #app-loader .loader-bar{ background:rgba(227,236,229,.15); }
+      .dark-boot #app-loader .loader-bar span{ background:#7ED9A8; }
       #app-loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
       #app-loader .loader-logo{
         width:120px; height:120px; object-fit:contain;

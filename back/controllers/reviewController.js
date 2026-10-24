@@ -255,3 +255,141 @@ export const deleteReview = asyncHandler(async (req, res) => {
 
     res.json({ message: 'Review deleted' })
 })
+
+// ---- the signed-in customer's own reviews & replies (storefront "My account") ----
+
+// @route  GET /api/reviews/mine
+// @access Private – every review the customer wrote (any status) and every
+//         reply they left under other reviews.
+export const getMyActivity = asyncHandler(async (req, res) => {
+    const [reviews, repliedOn] = await Promise.all([
+        Review.find({ user: req.user._id })
+            .sort({ createdAt: -1 })
+            .populate('product', 'name brand price image')
+            .populate('replies.user', 'name')
+            .lean(),
+        Review.find({ 'replies.user': req.user._id })
+            .sort({ updatedAt: -1 })
+            .populate('product', 'name image')
+            .populate('user', 'name')
+            .lean(),
+    ])
+
+    const replies = []
+    for (const review of repliedOn) {
+        for (const reply of review.replies || []) {
+            if (!sameId(reply.user, req.user._id)) continue
+            replies.push({
+                _id: reply._id,
+                text: reply.text,
+                createdAt: reply.createdAt,
+                updatedAt: reply.updatedAt,
+                review: {
+                    _id: review._id,
+                    comment: review.comment,
+                    rating: review.rating,
+                    status: review.status,
+                    author: review.user?.name || review.name,
+                },
+                product: review.product ? { _id: review.product._id, name: review.product.name, image: review.product.image } : null,
+            })
+        }
+    }
+    replies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
+    res.json({
+        reviews: reviews.map((review) => ({
+            _id: review._id,
+            rating: review.rating,
+            comment: review.comment,
+            image: review.image || '',
+            status: review.status,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+            likesCount: review.likesCount ?? (review.likes || []).length,
+            product: review.product
+                ? { _id: review.product._id, name: review.product.name, brand: review.product.brand, image: review.product.image }
+                : null,
+            replies: (review.replies || []).map((reply) => shapeReply(reply, req.user)),
+        })),
+        replies,
+    })
+})
+
+// @route  PUT /api/reviews/mine/:id
+// @access Private – author only. Editing sends the review back to moderation.
+export const updateMyReview = asyncHandler(async (req, res) => {
+    const review = await Review.findOne({ _id: req.params.id, user: req.user._id })
+    if (!review) {
+        res.status(404)
+        throw new Error('Review not found')
+    }
+
+    const { rating, comment } = req.body
+    if (comment !== undefined) {
+        const text = String(comment).trim()
+        if (!text) {
+            res.status(400)
+            throw new Error('The review cannot be empty')
+        }
+        review.comment = text
+    }
+    if (rating !== undefined) {
+        const numericRating = Number(rating)
+        if (!Number.isInteger(numericRating) || numericRating < 1 || numericRating > 5) {
+            res.status(400)
+            throw new Error('rating must be a whole number from 1 to 5')
+        }
+        review.rating = numericRating
+    }
+
+    const wasApproved = review.status === 'approved'
+    review.status = 'pending'
+    await review.save()
+    if (wasApproved) await recalculateProductRating(review.product)
+
+    res.json({ _id: review._id, rating: review.rating, comment: review.comment, status: review.status, updatedAt: review.updatedAt })
+})
+
+// @route  DELETE /api/reviews/mine/:id
+// @access Private – author only
+export const deleteMyReview = asyncHandler(async (req, res) => {
+    const review = await Review.findOne({ _id: req.params.id, user: req.user._id })
+    if (!review) {
+        res.status(404)
+        throw new Error('Review not found')
+    }
+    const productId = review.product
+    await review.deleteOne()
+    await recalculateProductRating(productId)
+    res.json({ message: 'Review deleted' })
+})
+
+// @route  PUT /api/reviews/:id/replies/:replyId
+// @access Private – the author of the reply
+export const updateReply = asyncHandler(async (req, res) => {
+    const text = String(req.body.text || '').trim()
+    if (!text) {
+        res.status(400)
+        throw new Error('Reply text is required')
+    }
+    if (text.length > MAX_REPLY_LENGTH) {
+        res.status(400)
+        throw new Error(`Replies are limited to ${MAX_REPLY_LENGTH} characters`)
+    }
+
+    const review = await Review.findById(req.params.id)
+    const reply = review?.replies.id(req.params.replyId)
+    if (!review || !reply) {
+        res.status(404)
+        throw new Error('Reply not found')
+    }
+    if (!sameId(reply.user, req.user._id)) {
+        res.status(403)
+        throw new Error('You can only edit your own replies')
+    }
+
+    reply.text = text
+    await review.save()
+    res.json({ _id: reply._id, text: reply.text, updatedAt: reply.updatedAt })
+})

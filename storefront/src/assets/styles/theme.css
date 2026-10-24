@@ -1,0 +1,103 @@
+/* ==========================================================================
+   theme.css – the ONE place where the site's colours are defined.
+   Imported first in main.jsx. Every other stylesheet only *uses* these
+   variables, so light and dark mode can never leak into each other.
+
+   Light mode = :root          Dark mode = body.dark (set by components/theme.jsx)
+   ========================================================================== */
+
+:root {
+    color-scheme: light;
+
+    /* brand */
+    --green-primary: #D8F0E5;          /* soft green surface (banners, chips, hovers) */
+    --green-dark: #3C4D3C;             /* brand green used for text, icons, buttons */
+    --accent: #3C4D3C;
+    --accent-hover: #2B382B;
+    --on-accent: #ffffff;              /* text placed on top of --accent / --green-dark */
+    --accent-soft: #D8F0E5;
+    --cta-from: #3C4D3C;               /* big gradient banners */
+    --cta-to: #1f2e21;
+
+    /* page */
+    --bg-color: #F7FAF8;
+    --section-bg: #F7FAF8;
+    --card-bg: #ffffff;
+    --surface-2: #F1F6F3;
+    --text-color: #3C4D3C;
+    --heading-color: #1F2A20;
+    --muted-text: rgba(60, 77, 60, 0.68);
+    --text-muted: var(--muted-text);
+    --border-color: rgba(60, 77, 60, 0.12);
+    --input-bg: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.42);
+    --header-bg: rgba(255, 255, 255, 0.42);
+
+    /* highlight / status */
+    --bestseller-background: #FEF3C7;
+    --bestseller-bg: #FEF3C7;
+    --bestseller-text: #B45309;
+    --success: #1F7A4A;
+    --success-soft: #DCF3E6;
+    --warn: #B45309;
+    --warn-soft: #FEF3C7;
+    --danger: #B42318;
+    --danger-soft: #FDE7E5;
+    --info: #1D5FA8;
+    --info-soft: #E3EEFB;
+
+    /* legacy names still used across the older stylesheets */
+    --green-Primery: var(--green-primary);
+    --darckGreen-sacendery: var(--green-dark);
+    --darckGreen-secondary: var(--green-dark);
+    --white: #ffffff;
+}
+
+body.dark {
+    color-scheme: dark;
+
+    --green-primary: #1D2E24;
+    --green-dark: #8FD9AE;
+    --accent: #7ED9A8;
+    --accent-hover: #9BE4BB;
+    --on-accent: #0C1A12;
+    --accent-soft: #1D2E24;
+    --cta-from: #1F3A2B;
+    --cta-to: #101B15;
+
+    --bg-color: #0F1612;
+    --section-bg: #0F1612;
+    --card-bg: #18221C;
+    --surface-2: #1F2B24;
+    --text-color: #E3ECE5;
+    --heading-color: #F2F7F3;
+    --muted-text: #9DB0A2;
+    --text-muted: #9DB0A2;
+    --border-color: rgba(227, 236, 229, 0.12);
+    --input-bg: #121A15;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --header-bg: rgba(15, 22, 18, 0.78);
+
+    --bestseller-background: #3A2F14;
+    --bestseller-bg: #3A2F14;
+    --bestseller-text: #F2C572;
+    --success: #6FD39B;
+    --success-soft: rgba(111, 211, 155, 0.14);
+    --warn: #F2C572;
+    --warn-soft: rgba(242, 197, 114, 0.14);
+    --danger: #FF8A80;
+    --danger-soft: rgba(255, 138, 128, 0.14);
+    --info: #8AB8F0;
+    --info-soft: rgba(138, 184, 240, 0.14);
+
+    --green-Primery: var(--green-primary);
+    --darckGreen-sacendery: #D6EADC;   /* header/nav text & outlines */
+    --darckGreen-secondary: #D6EADC;
+    --white: #1F2B24;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

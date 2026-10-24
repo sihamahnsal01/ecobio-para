@@ -120,6 +120,27 @@ export const getMyOrders = asyncHandler(async (req, res) => {
     res.json(orders)
 })
 
+// @route  POST /api/orders/:id/cancel
+// @access Private – the customer who owns the order. Only orders that have not
+//         been paid or shipped yet can be cancelled; the stock goes back on sale.
+export const cancelMyOrder = asyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id)
+    if (!order || !order.user || order.user.toString() !== req.user._id.toString()) {
+        res.status(404)
+        throw new Error('Order not found')
+    }
+    if (order.status !== 'pending' || order.paymentStatus === 'paid') {
+        res.status(400)
+        throw new Error('This order can no longer be cancelled. Please contact us for help.')
+    }
+
+    await restockOrder(order._id)
+    order.status = 'cancelled'
+    order.paymentStatus = 'failed'
+    const updated = await order.save()
+    res.json(updated)
+})
+
 // @route  POST /api/orders/claim
 // @access Private
 // Attach orders placed before account creation to the verified account email.

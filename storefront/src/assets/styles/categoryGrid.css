@@ -1,7 +1,7 @@
 section.category-section {
     padding: 10% 8%;
     display: block;
-
+}
 
 .category-header {
     display: flex;
@@ -56,12 +56,12 @@ section.category-section {
     border-radius: 18px;
     overflow: hidden;
     border: 1px solid #EDEDED;
-    transition: transform 0.25s ease, box-sDHow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .category-card:hover {
     transform: translateY(-4px);
-    box-sDHow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .category-image-wrap {
@@ -115,49 +115,30 @@ section.category-section {
     font-weight: 700;
     margin: 0 0 4px;
     color: #1A1A1A;
-} p {
+}
+
+.category-info p {
     font-size: 0.85rem;
     color: #6B7A6E;
     margin: 0;
 }
-.body.dark{
-.category-eyebrow {
-    color: #7ED9A8;
-        h2 {
-            color: #F1F5F2;
-        }
-}
- .view-all {
-    color: #7ED9A8;
-}
 
-.category-card {
-    background-color: #1B221D;
-    border-color: #2A362C;
-    &:hover {
-    box-sDHow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    }
+/* ---------- Dark mode ---------- */
+body.dark .category-eyebrow,
+body.dark .view-all { color: var(--accent); }
+body.dark .category-header h2 { color: var(--heading-color); }
+body.dark .category-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
 }
-
- .category-card
-
-.category-count {
-    background-color: rgba(19, 26, 21, 0.85);
-    color: #F1F5F2;
+body.dark .category-card:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
+body.dark .category-count {
+    background-color: rgba(15, 22, 18, 0.85);
+    color: var(--heading-color);
 }
-
- .category-icon {
-    background-color: #29392C;
-    color: #7ED9A8;
+body.dark .category-icon {
+    background-color: var(--surface-2);
+    color: var(--accent);
 }
-
- .category-info{
-            h3 {
-            color: #F1F5F2;
-                p{
-                    color: #9FB0A3;
-                }
-            }
-}       
-}
-}
+body.dark .category-info h3 { color: var(--heading-color); }
+body.dark .category-info p { color: var(--muted-text); }

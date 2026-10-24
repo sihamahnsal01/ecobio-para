@@ -14,7 +14,7 @@
   background: #fff;
   display: flex;
   flex-direction: column;
-  box-sDHow: -8px 0 24px rgba(0, 0, 0, 0.12);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12);
 }
 
 .drawer-header {
@@ -164,7 +164,7 @@
 
   /* 4. Fit drawer panel content snugly on one page */
   .drawer-panel {
-    box-sDHow: none !important;
+    box-shadow: none !important;
     border: none !important;
     padding: 15px 30px !important;
     margin: 0 auto !important;

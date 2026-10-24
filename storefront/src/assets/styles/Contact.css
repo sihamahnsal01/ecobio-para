@@ -90,7 +90,7 @@ body.dark .contact-hero {
 }
 
 .contact-map {
-    background: url('../public/bio-pharmacy-map.png');
+    background: url('/bio-pharmacy-map.png');
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px;
@@ -103,7 +103,7 @@ body.dark .contact-hero {
 
 .map-pin {
     background: var(--green-dark, #3C4D3C);
-    color: #fff;
+    color: var(--on-accent, #fff);
     border-radius: 12px;
     padding: 14px 20px;
     text-align: center;
@@ -144,7 +144,7 @@ body.dark .contact-hero {
 
 .hours-header {
     background: var(--green-dark, #3C4D3C);
-    color: #fff;
+    color: var(--on-accent, #fff);
     padding: 20px 24px;
     display: flex;
     justify-content: space-between;
@@ -194,7 +194,7 @@ body.dark .contact-hero {
 /* Form */
 .contact-form-grid {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
     gap: 48px;
     padding: 40px;
 }
@@ -225,7 +225,7 @@ body.dark .contact-hero {
 
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
 }
 
@@ -251,8 +251,25 @@ body.dark .contact-hero {
     font-size: 0.9rem;
     color: var(--text-color);
     font-family: inherit;
+    /* inputs, the subject <select> and the textarea all measure the same way,
+       so they line up and never stick out of the card */
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 46px;
+}
+.form-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%237b8a7d' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
 }
 .form-field textarea { resize: vertical; }
+.contact-form-grid > *,
+.contact-form { min-width: 0; }
 
 .form-legal {
     font-size: 0.78rem;
@@ -264,7 +281,7 @@ body.dark .contact-hero {
 .submit-btn {
     width: 100%;
     background: var(--green-dark, #3C4D3C);
-    color: #fff;
+    color: var(--on-accent, #fff);
     border: none;
     border-radius: 999px;
     padding: 14px;
@@ -334,7 +351,7 @@ body.dark .contact-hero {
     font-size: 0.75rem;
     flex-shrink: 0;
 }
-.faq-item.open .faq-toggle { background: var(--green-dark, #3C4D3C); color: #fff; }
+.faq-item.open .faq-toggle { background: var(--green-dark, #3C4D3C); color: var(--on-accent, #fff); }
 
 .faq-answer {
     margin: 0 0 18px;
@@ -344,7 +361,7 @@ body.dark .contact-hero {
 }
 
 .faq-cta {
-    background: linear-gradient(135deg, var(--green-dark, #3C4D3C), #1f2e21);
+    background: linear-gradient(135deg, var(--cta-from, #3C4D3C), var(--cta-to, #1f2e21));
     border-radius: 18px;
     padding: 36px;
     color: #fff;
@@ -364,7 +381,7 @@ body.dark .contact-hero {
     .contact-form-grid {
         grid-template-columns: 1fr;
     }
-    .form-row { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
 }
 
 /* Mobile */
@@ -373,6 +390,6 @@ body.dark .contact-hero {
     .contact-hero h1 { font-size: 1.8rem; }
     .contact-info-grid,
     .contact-form-grid { padding: 24px 20px; gap: 20px; }
-    .contact-form { padding: 22px; }
+    .contact-form { padding: 20px 16px; }
     .faq-section { padding: 44px 16px 60px; }
 }

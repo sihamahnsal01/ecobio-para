@@ -48,7 +48,7 @@
     border-radius: 18px;
     width: 55%;
     max-width: 170px;
-    filter: drop-sDHow(0 8px 16px #000000a5);
+    filter: drop-shadow(0 8px 16px #000000a5);
 }
 
 .slider-badge {

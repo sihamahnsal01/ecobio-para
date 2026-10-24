@@ -1,9 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './assets/styles/theme.css'
 import './index.css'
 import './app.css'
-import './assets/styles/tablet.css'
-import './assets/styles/mobile.css'
 import './assets/styles/darkMood.css'
 import './assets/styles/heroBackground.css'
 import './assets/styles/motion.css'
@@ -11,6 +10,10 @@ import App from './App.jsx'
 import { CartProvider } from './components/CartContext.jsx'
 import { WishlistProvider } from './components/WishlistContext.jsx'
 import { AuthProvider } from './api/AuthContext.jsx'
+import { applyTheme, getInitialTheme } from './utils/themeMode.js'
+
+// Apply the saved theme before the first paint so dark mode never flashes white.
+applyTheme(getInitialTheme())
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -1,29 +1,3 @@
-:root {
-    --green-primary: #D8F0E5;
-    --green-dark: #3C4D3C;
-    --bestseller-bg: #FEF3C7;
-    --bestseller-text: #B45309;
-
-    --bg-color: var(--green-primary);
-    --text-color: var(--green-dark);
-    --glass-bg: rgba(255, 255, 255, 0.42);
-    --input-bg: rgba(253, 255, 254, 0.36);
-
-    --card-bg: #ffffff;
-    --section-bg: #F7FAF8;
-    --border-color: rgba(60, 77, 60, 0.1);
-    --muted-text: rgba(60, 77, 60, 0.65);
-}
-body.dark {
-    --bg-color: #142016;
-    --text-color: #E7F2EA;
-    --card-bg: #1E2C22;
-    --section-bg: #101A14;
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --input-bg: rgba(255, 255, 255, 0.08);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --muted-text: rgba(231, 242, 234, 0.65);
-}
 
 .promo-wrap {
     color: var(--text-color);
@@ -35,7 +9,7 @@ body.dark {
 
 /* Hero banner */
 .promo-banner {
-    background: linear-gradient(135deg, var(--green-dark), #1f2e21);
+    background: linear-gradient(135deg, var(--cta-from, #3C4D3C), var(--cta-to, #1f2e21));
     border-radius: 20px;
     padding: 40px;
     display: grid;
@@ -219,7 +193,7 @@ body.dark .newsletter {
 }
 .newsletter-form button {
     background: var(--green-dark);
-    color: #fff;
+    color: var(--on-accent, #fff);
     border: none;
     padding: 10px 22px;
     border-radius: 999px;

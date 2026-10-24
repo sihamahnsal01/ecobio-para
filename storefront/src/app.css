@@ -1,15 +1,5 @@
-:root{
-    --green-Primery: #D8F0E5;
-    --darckGreen-sacendery:#3C4D3C;
-    --bestseller-background:#FEF3C7;
-    --bestseller-text:#B45309;
-  --bg-color: var(--green-primary);
-  --text-color: var(--darckGreen-secondary);
-  --glass-bg: rgba(255, 255, 255, 0.42);
-  --input-bg: rgba(253, 255, 254, 0.36);
-}
  body {
-    background: var(--section-bg);
+    background: var(--bg-color);
     overflow-x: hidden;
     width: 100vw;
     margin: 0;
@@ -55,7 +45,7 @@ header {
     margin: 0;
     height: fit-content;
     align-items: center;
-    background-color: #ffffff42;
+    background-color: var(--header-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 
@@ -63,11 +53,18 @@ header {
         height: 9vh;
     }
     
+    .logo-link {
+        display: flex;
+        align-items: center;
+    }
+
     .hamburger {
         display: none;
         font-size: 1.5rem;
         cursor: pointer;
         color: var(--darckGreen-sacendery);
+        border: 0;
+        background: transparent;
     }
 
     nav {
@@ -139,11 +136,14 @@ header {
                 }
             }
 
-            /* CHANGED: Fixed icon width sizing */
-            i {
+            /* the magnifier is a <button> */
+            .search-icon {
                 min-width: 16px;
-                width: auto;
                 padding: 0 5px;
+                border: 0;
+                background: transparent;
+                color: inherit;
+                font: inherit;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
@@ -151,12 +151,17 @@ header {
             }
         }
 
-        div.divOrder {
+        .divOrder {
             cursor: pointer;
             padding: 5px 15px;
             position: relative;
             align-items: center;
+            gap: 4px;
             display: flex;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
 
             pre {
                 position: absolute;
@@ -164,6 +169,54 @@ header {
                 right: 15px;
                 color: var(--bestseller-text);
             }
+        }
+
+        a.divWish,
+        a.divAccount {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            margin-right: 8px;
+            border-radius: 50%;
+            color: var(--darckGreen-sacendery);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: var(--green-primary);
+            }
+        }
+
+        .hdr-count {
+            position: absolute;
+            top: -2px;
+            right: -4px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            border-radius: 999px;
+            background: #e0445a;
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            line-height: 17px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .hdr-avatar {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--on-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
         }
 
         div.divMood {
@@ -177,8 +230,10 @@ header {
                 cursor: pointer;
             }
 
-            i.fa-sun:active, i.fa-sun {   
-                background-color: white;
+            span.is-active i {
+                background-color: var(--card-bg);
+                color: var(--accent);
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
             }
         }
     }
@@ -221,7 +276,7 @@ header {
     border-radius: 30px;
     font-size: 0.85rem;
     color: var(--darckGreen-sacendery);
-    box-sDHow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .badge .badge-dot {
@@ -292,7 +347,7 @@ h1 .highlight {
     align-items: center;
     gap: 10px;
     background-color: var(--darckGreen-sacendery);
-    color: white;
+    color: var(--on-accent, #fff);
     border: none;
     padding: 14px 28px;
     border-radius: 30px;

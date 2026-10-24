@@ -1,340 +1,236 @@
-@media (max-width: 850px) {
-    body {
-        width: 100%;
-        overflow-x: hidden;
-        position: relative;
+/* ==========================================================================
+   mobile.css – phones (≤ 600px), on top of tablet.css.
+   Imported LAST in App.jsx, right after tablet.css.
+   ========================================================================== */
+
+@media (max-width: 600px) {
+    :root {
+        --header-h: 60px;
+        --page-x: 16px;
     }
 
-    header {
-        padding: 12px 15px;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-            .logo {
-                height: 46px;
-                position: static;
-            }.hamburger {
-                display: block;
-                order: 2;
-                font-size: 1.2rem;
-            }nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100vh;
-                width: min(80vw, 280px);
-                background-color: var(--green-Primery);
-                box-sDHow: 2px 0 12px rgba(0, 0, 0, 0.18);
-                transform: translateX(-105%);
-                transition: transform 0.3s ease-in-out;
-                z-index: 200;
-                padding-top: 70px;
-            }nav.open {
-                transform: translateX(0);
-            }nav ul {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-                padding: 0 18px;
-                width: 100%;
-            }nav ul li {
-                width: 100%;
-                text-align: left;
-            }section {
-                margin-left: auto;
-                gap: 10px;
-            }section .divInput {
-                display: flex;
-                order: 4;
-                flex: 1 0 100%;
-                width: 100%;
-                box-sizing: border-box;
-            }section .divInput input {
-                min-width: 0;
-                width: 100%;
-            }.top-container {
-                padding: 100px 5% 35px;
-                margin: 0;
-            }section.topHome {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }.hero-text {
-                max-width: 100%;
-                text-align: center;
-            }.badge {
-                font-size: 0.7rem;
-                padding: 8px 12px;
-                line-height: 1.5;
-            }.hero-text h1 {
-                font-size: clamp(2.1rem, 7vw, 3rem);
-            }.prd {
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 18px;
-            }.input {
-                flex-direction: column;
-                width: 100%;
-            }.input a,
-            .btn-shop,
-            .btn-advice {
-                width: 100%;
-                justify-content: center;
-            }.slider-frame {
-                display: block;
-                width: 100%;
-                max-width: 460px;
-                padding: 10px;
-                box-sizing: border-box;
-            }
-}
+    div#root {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
 
+    /* ---------- Header ---------- */
+    header.site-header {
+        padding: 0 12px;
+        gap: 4px;
+    }
+    header.site-header .hamburger {
+        width: 40px;
+        height: 40px;
+    }
+    header.site-header img.logo {
+        height: 34px;
+    }
+    header.site-header section { gap: 0; }
+
+    header.site-header .divOrder,
+    header.site-header a.divAccount,
+    header.site-header div.divMood {
+        width: 40px;
+        height: 40px;
+    }
+    /* wishlist is in the menu and in "My account" on phones */
+    header.site-header a.divWish { display: none; }
+
+    /* search: just the magnifier until tapped, then a full-width bar under the header */
+    header.site-header form.divInput {
+        flex: none;
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        justify-content: center;
+    }
+    header.site-header form.divInput input { display: none; }
+    header.site-header form.divInput .search-icon {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        font-size: 1.05rem;
+    }
+    header.site-header form.divInput.expanded {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 12px;
+        right: 12px;
+        width: auto;
+        height: 48px;
+        padding: 0 8px 0 4px;
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        background: var(--card-bg);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+        z-index: 1001;
+    }
+    header.site-header form.divInput.expanded input {
+        display: block;
+        flex: 1;
+        height: 100%;
+        font-size: 16px;          /* 16px stops iPhone from zooming into the field */
+        color: var(--text-color);
+    }
+    header.site-header form.divInput.expanded .search-icon { flex: none; }
+
+    /* theme: one round button showing the mode you can switch to */
+    header.site-header div.divMood {
+        display: grid;
+        place-items: center;
+        margin-left: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+    }
+    header.site-header div.divMood span i {
+        padding: 8px;
+        border-radius: 50%;
+        background: transparent;
+        box-shadow: none;
+        color: var(--darckGreen-sacendery);
+        font-size: 1.05rem;
+    }
+    body:not(.dark) header.site-header div.divMood .LightMood_icon,
+    body.dark header.site-header div.divMood .Darkmood_icon {
+        display: none;
+    }
+
+    /* ---------- Home hero (phone design) ---------- */
+    div.container > div.top-container {
+        padding: calc(var(--header-h) + 16px) var(--page-x) 32px;
+        background: transparent;
+    }
+    div.container section.topHome {
+        display: block;
+    }
+    div.container .hero-text {
+        max-width: none;
+        padding: 22px 18px;
+        border-radius: 20px;
+        background-color: var(--green-primary);
+    }
+    div.container .hero-text .badge,
+    div.container .hero-text .prd {
+        display: none;
+    }
+    div.container .hero-text h1 {
+        margin: 0 0 12px;
+        font-size: 0.95rem;
+    }
+    div.container .hero-text h1::after {
+        content: "Eco&Bio - para";
+        display: block;
+        margin-top: 4px;
+        font-size: clamp(1.6rem, 8vw, 2rem);
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--heading-color);
+    }
+    div.container .hero-text .subtext {
+        font-size: 0.88rem;
+        margin-bottom: 18px;
+    }
+    div.container .hero-text .input {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    div.container .hero-text .btn-shop,
+    div.container .hero-text .btn-advice {
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 20px;
+    }
+    div.container .slider-frame {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    /* ---------- Home sections ---------- */
+    section.category-section,
+    .bestsellers-section {
+        padding: 32px 0;
+    }
     .bestsellers-header,
     .category-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+    .bestsellers-header h2,
+    .category-header h2 {
+        font-size: 1.4rem;
+    }
+    .category-header div { margin-right: 0; }
+    .see-all,
+    .view-all { font-size: 0.85rem; }
+
+    .bestsellers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+    .bestsellers-grid .product-info { padding: 10px; }
+    .bestsellers-grid .product-name { font-size: 0.9rem; }
+    .bestsellers-grid .product-footer {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .bestsellers-grid .add-btn {
+        width: 100%;
+        justify-content: center;
     }
 
-    .bestsellers-grid,
     .category-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
 
-    .product-info {
-        padding: 12px;
-    }
-
-    .product-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .add-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    footer img{
-        height: 100px;
-        width: 40%;
+    /* ---------- Footer ---------- */
+    footer img {
+        height: 90px;
+        width: auto;
+        max-width: 60%;
     }
 }
 
-@media (max-width: 520px) {
-    div#root{
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
+/* very small phones (iPhone SE 1st gen, Galaxy Fold) */
+@media (max-width: 380px) {
+    header.site-header { padding: 0 8px; }
+    header.site-header img.logo { height: 28px; }
+    header.site-header .hamburger,
+    header.site-header .divOrder,
+    header.site-header a.divAccount,
+    header.site-header div.divMood,
+    header.site-header form.divInput,
+    header.site-header form.divInput .search-icon {
+        width: 36px;
+        height: 36px;
     }
-    .container,
-    .bestsellers-section,
-    section.category-section {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .bestsellers-grid,
-    .category-grid {
-        grid-template-columns: 1fr;
-    }
-    header{
-        width: 100vw;
-        position: relative;
-    }
-    header img{
-        display: none;
-    }
-
-    /* FIX #1: removed the space before :not(.expanded) so this targets
-       the <form class="divInput"> element itself, not its descendants */
-    header section form.divInput:not(.expanded){
-        border: none;
-        width: 36px !important;
-        height: 36px !important;
-        max-width: 36px !important;
-        flex: 0 0 36px !important;
-        padding: 0 !important;
-        border-radius: 50% !important;
-        overflow: hidden !important;
-        justify-content: center !important;
-        transition: all 0.3s ease !important;
-
-        input {
-            display: none;
-            width: 0;
-            padding: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, width 0.3s ease;
-        }
-    }
-
-    /* Expanded state when clicked or focused on mobile */
-    header section form.divInput.expanded {
-        position: absolute;
-        left: 12%;
-        width: 85vw;
-        height: 40px;
-        z-index: 1001;
-        background-color: #ffffff;
-        padding: 0 10px;
-        filter: drop-sDHow(1px 1px 5px #0000001f);
-
-        input {
-            /* FIX #2: explicitly restore display + visible state so it
-               overrides the :not(.expanded) hidden rule above */
-            display: block;
-            position: absolute;
-            right: 18%;
-            width: 250px;
-            opacity: 1;
-            visibility: visible;
-        }
-        i {
-            position: relative;
-            left: 87%;
-        }
-    }
-
-    header {
-        /* FIX #3: removed the old unscoped `form.divInput { input { display:none } }`
-           block that was permanently hiding the input regardless of .expanded.
-           That rule is now redundant with the :not(.expanded) rule above,
-           so only the icon-position rule is kept here. */
-        form.divInput {
-            border: none !important;
-            border-radius: none;
-
-            i {
-                position: absolute;
-                right: 23%;
-            }
-        }
-        div.hamburger{
-            position: absolute;
-            left: 5%;
-        }
-        div.divMood{
-            position: absolute;
-            right: 12%;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-        div.divOrder{
-            position: absolute;
-            right: 60%;
-        }
-        i.fa-xmark{
-            display: flex;
-            position: fixed;
-            top: 60%;
-            left: 45%;
-            z-index: 1002; /* Keeps it layered above nav.open */
-            color: var(--darckGreen-sacendery);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-    }
-
-    /* In light mode: hide sun icon, show moon icon */
-    body.light header section div.divMood .LightMood_icon {
-        display: none !important;
-    }
-    body.light header section div.divMood .Darkmood_icon {
-        display: flex !important;
-    }
-
-    /* In dark mode: hide moon icon, show sun icon */
-    body.dark header section div.divMood .Darkmood_icon {
-        display: none !important;
-    }
-    body.dark header section div.divMood .LightMood_icon {
-        display: flex !important;
-    }
-    header nav.open ~ section form.divInput.expanded {
-    display: none !important;
+    .category-grid { grid-template-columns: 1fr; }
 }
-    nav.open {
-        overflow: hidden;
-    li{
-        padding: 3% 10%;
-        width: 65%;
 
-        &:hover{
-            background-color: var(--darckGreen-sacendery);
-
-            a{
-                background-color: var(--darckGreen-sacendery);
-                color: var(--bestseller-background);
-                font-weight: bold;
-                transition: 0.4s ease-in-out;
-                padding: 5px 10px;
-                border-radius: 15px;
-            }
-        }
-    }        
+/* phone search bar: one clean focus ring around the whole bar */
+@media (max-width: 600px) {
+    header.site-header form.divInput.expanded input,
+    header.site-header form.divInput.expanded input:focus {
+        outline: none;
+        border: 0;
+        box-shadow: none;
+        background: transparent;
     }
-
-        div.container{
-            div.top-container{
-                margin: -130px 0 0 -30px;
-                background: transparent;
-            }
-            section.topHome{
-                display: block;
-                .hero-text{
-                    background-color: var(--green-Primery);
-                    padding: 5%;
-                    .badge{
-                        display: none;
-                    }
-                    h1{
-                        font-size: medium;
-                    &::after {
-                    content: "Eco&Bio - para";
-                    display: block;
-                    font-size: 1.9rem;
-                    font-weight: 600;
-                    color: black;
-                    margin-bottom: 5px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    }    
-                    }.subtext{
-                        font-size: 0.8rem;
-                    }.prd{
-                        display: none;
-                    }
-
-
-                }
-                .slider-frame{
-                    margin: 5% auto -50px;
-                    width: 80vw;
-                }
-            }
-            section.category-section{
-                padding: 0;
-                position: relative;
-                div.category-header{
-                    div{
-                        margin-right: 70px;
-                    h2{
-                        font-size: 1.5rem;
-                }                    
-                }                        
-                    }
-            }
-            }
-    footer{
-
+    header.site-header form.divInput.expanded:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft), 0 12px 30px rgba(0, 0, 0, 0.14);
     }
-        
 }

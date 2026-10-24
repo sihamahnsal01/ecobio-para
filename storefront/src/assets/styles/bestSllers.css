@@ -52,12 +52,12 @@
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid #EDEDED;
-    transition: transform 0.25s ease, box-sDHow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
     transform: translateY(-4px);
-    box-sDHow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .product-image-wrap {
@@ -179,7 +179,7 @@
     align-items: center;
     gap: 6px;
     background-color: var(--darckGreen-sacendery);
-    color: white;
+    color: var(--on-accent, #fff);
     border: none;
     padding: 8px 16px;
     border-radius: 20px;
@@ -211,37 +211,27 @@
     cursor: not-allowed;
     opacity: 0.75;
 }
-body.dark{
-
-
-.bestsellers-eyebrow { color: #7ED9A8; }
-.bestsellers-header h2 { color: #F1F5F2; }
-.see-all { color: #7ED9A8; }
-
-.product-card {
-    background-color: #1B221D;
-    border-color: #2A362C;
+/* ---------- Dark mode ---------- */
+body.dark .bestsellers-eyebrow,
+body.dark .see-all,
+body.dark .product-brand { color: var(--accent); }
+body.dark .bestsellers-header h2,
+body.dark .product-name,
+body.dark .price-current { color: var(--heading-color); }
+body.dark .product-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
 }
-.product-card:hover {
-    box-sDHow: 0 10px 25px rgba(0, 0, 0, 0.4);
+body.dark .product-card:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
+body.dark .product-image-wrap { background-color: var(--surface-2); }
+body.dark .badge-bestseller {
+    background-color: var(--bestseller-background);
+    color: var(--bestseller-text);
 }
-.product-image-wrap {
-    background-color: #232D25;
+body.dark .review-count { color: var(--muted-text); }
+body.dark .price-old { color: #6E8072; }
+body.dark .add-btn {
+    background-color: var(--accent);
+    color: var(--on-accent);
 }
- .badge-bestseller {
-    background-color: #3A2E1A;
-    color: #F2C572;
-}
- .product-brand { color: #7ED9A8; }
- .product-name { color: #F1F5F2; }
- .review-count { color: #7C8C80; }
- .price-current { color: #F1F5F2; }
- .price-old { color: #5A6B5D; }
- .add-btn {
-    background-color: #6FCF97;
-    color: #131A15;
-}
-.add-btn:hover {
-    background-color: #8EDDB0;
-}
-}
+body.dark .add-btn:hover { background-color: var(--accent-hover); }

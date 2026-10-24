@@ -32,7 +32,7 @@ const FAQS = [
     },
     {
         q: 'How do I track my order?',
-        a: 'Once your order ships, you\u2019ll receive a tracking link by email. You can also check order status from your account.'
+        a: 'Once your order ships, you’ll receive a tracking link by email. You can also check order status from your account.'
     },
 ]
 

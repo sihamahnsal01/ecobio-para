@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import api from './client.js'
 
 const AuthContext = createContext(null)
@@ -30,14 +30,34 @@ export function AuthProvider({ children }) {
             .finally(() => setLoading(false))
     }, [])
 
+    // Saves the latest profile (after login or a profile edit) everywhere it is used.
+    const updateUser = useCallback((profile) => {
+        setUser((previous) => {
+            const next = { ...(previous || {}), ...profile }
+            delete next.token
+            localStorage.setItem(USER_KEY, JSON.stringify(next))
+            return next
+        })
+    }, [])
+
+    const refreshUser = useCallback(async () => {
+        const profile = await api.get('/auth/me')
+        updateUser(profile)
+        return profile
+    }, [updateUser])
+
     const authenticate = async (data) => {
         localStorage.setItem(TOKEN_KEY, data.token)
-        localStorage.setItem(USER_KEY, JSON.stringify(data))
-        setUser(data)
+        updateUser(data)
         try {
             await api.post('/orders/claim')
         } catch {
             // Account authentication should still succeed if order claiming is temporarily unavailable.
+        }
+        try {
+            await refreshUser() // login only returns the basics; load phone, addresses, etc.
+        } catch {
+            // keep the basic profile from the login response
         }
     }
 
@@ -49,7 +69,7 @@ export function AuthProvider({ children }) {
         setUser(null)
     }
 
-    return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser, refreshUser }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

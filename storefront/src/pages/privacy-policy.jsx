@@ -13,7 +13,7 @@ const SECTIONS = [
     { id: 'retention', title: '7. Data Retention' },
     { id: 'your-rights', title: '8. Your Rights (GDPR)' },
     { id: 'security', title: '9. Data Security' },
-    { id: 'children', title: '10. Children\u2019s Privacy' },
+    { id: 'children', title: '10. Children’s Privacy' },
     { id: 'changes', title: '11. Changes to This Policy' },
     { id: 'contact', title: '12. Contact Us' },
 ]
@@ -60,12 +60,12 @@ function PrivacyPolicy() {
                         <h2>2. Data We Collect</h2>
                         <p>Depending on how you interact with us, we may collect:</p>
                         <ul>
-                            <li><strong>Identity &amp; contact data</strong> \u2014 name, email, phone number, delivery and billing address.</li>
-                            <li><strong>Order data</strong> \u2014 products purchased, order history, payment confirmation (we do not store full card numbers).</li>
-                            <li><strong>Account data</strong> \u2014 login credentials and preferences, if you create an account.</li>
-                            <li><strong>Communication data</strong> \u2014 messages you send via our contact form, email, or phone.</li>
-                            <li><strong>Technical data</strong> \u2014 IP address, browser type, device information, and cookies (see Section 6).</li>
-                            <li><strong>Health-related data you choose to share</strong> \u2014 for example, if you ask a para-pharmacist a question about a medical condition. This data is treated as a special category under GDPR and handled with additional care and only with your explicit consent.</li>
+                            <li><strong>Identity &amp; contact data</strong> — name, email, phone number, delivery and billing address.</li>
+                            <li><strong>Order data</strong> — products purchased, order history, payment confirmation (we do not store full card numbers).</li>
+                            <li><strong>Account data</strong> — login credentials and preferences, if you create an account.</li>
+                            <li><strong>Communication data</strong> — messages you send via our contact form, email, or phone.</li>
+                            <li><strong>Technical data</strong> — IP address, browser type, device information, and cookies (see Section 6).</li>
+                            <li><strong>Health-related data you choose to share</strong> — for example, if you ask a para-pharmacist a question about a medical condition. This data is treated as a special category under GDPR and handled with additional care and only with your explicit consent.</li>
                         </ul>
                     </section>
 
@@ -86,10 +86,10 @@ function PrivacyPolicy() {
                         <h2>4. Legal Basis for Processing</h2>
                         <p>We process your data under one or more of the following legal bases:</p>
                         <ul>
-                            <li><strong>Contract</strong> \u2014 to fulfil an order or provide a service you requested</li>
-                            <li><strong>Consent</strong> \u2014 for marketing emails and for any health-related data you voluntarily share</li>
-                            <li><strong>Legal obligation</strong> \u2014 for tax, consumer protection, and para-pharmaceutical regulations</li>
-                            <li><strong>Legitimate interest</strong> \u2014 to keep our website secure and improve our services</li>
+                            <li><strong>Contract</strong> — to fulfil an order or provide a service you requested</li>
+                            <li><strong>Consent</strong> — for marketing emails and for any health-related data you voluntarily share</li>
+                            <li><strong>Legal obligation</strong> — for tax, consumer protection, and para-pharmaceutical regulations</li>
+                            <li><strong>Legitimate interest</strong> — to keep our website secure and improve our services</li>
                         </ul>
                     </section>
 

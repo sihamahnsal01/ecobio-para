@@ -133,14 +133,22 @@ body.dark .about-hero {
 }
 
 .team-photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    color: var(--green-dark, #3C4D3C);
+    font-size: 2rem;
+    font-weight: 700;
     border-radius: 50%;
     overflow: hidden;
     width: 120px;
     height: 120px;
     margin: 0 auto 14px;
-    background: var(--card-bg, #eee);
+    background: var(--green-primary, #D8F0E5);
 }
 .team-photo img {
+    position: absolute;
+    inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
@@ -155,7 +163,7 @@ body.dark .about-hero {
 
 /* CTA */
 .about-cta {
-    background: linear-gradient(135deg, var(--green-dark, #3C4D3C), #1f2e21);
+    background: linear-gradient(135deg, var(--cta-from, #3C4D3C), var(--cta-to, #1f2e21));
     color: #fff;
     text-align: center;
     padding: 48px 24px;

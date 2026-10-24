@@ -34,6 +34,23 @@ function CartPanel() {
   const total = subtotal + delivery
   const isCheckoutReady = Object.values(form).every((value) => String(value).trim()) && Boolean(paymentMethod)
 
+  // Fill empty checkout fields from the signed-in account (and its first saved address).
+  const prefillFromAccount = () => {
+    if (!user) return
+    const saved = user.addresses?.[0] || {}
+    const fromAccount = {
+      name: user.name, email: user.email, phone: user.phone,
+      street: saved.street, city: saved.city, postalCode: saved.postalCode, country: saved.country,
+    }
+    setForm((previous) => {
+      const next = { ...previous }
+      for (const [key, value] of Object.entries(fromAccount)) {
+        if (value && (!String(previous[key] || '').trim() || (key === 'country' && previous.country === 'Morocco'))) next[key] = value
+      }
+      return next
+    })
+  }
+
   const updateField = (event) => setForm((previous) => ({ ...previous, [event.target.name]: event.target.value }))
 
   const submitOrder = async (event) => {
@@ -102,7 +119,7 @@ function CartPanel() {
             <h3>Order received</h3>
             <p>Thank you, {confirmation.shippingAddress.name}. Your order was saved successfully.</p>
             <strong>Order #{confirmation._id.slice(-6).toUpperCase()}</strong>
-            <Link to="/orders" className="checkout-btn" onClick={() => setIsCartOpen(false)}>Track your order</Link>
+            <Link to="/account/orders" className="checkout-btn" onClick={() => setIsCartOpen(false)}>Track your order</Link>
             <button className="checkout-cancel" onClick={() => { setConfirmation(null); setIsCartOpen(false) }}>Close</button>
           </div>
         ) : cartItems.length === 0 ? (
@@ -167,6 +184,7 @@ function CartPanel() {
               {!checkoutOpen ? (
                 <button className="checkout-btn" onClick={() => {
                   if (user) setForm((previous) => ({ ...previous, name: user.name || previous.name, email: user.email || previous.email, phone: user.phone || previous.phone }))
+                  prefillFromAccount()
                   setCheckoutOpen(true)
                 }}>Commander</button>
               ) : (

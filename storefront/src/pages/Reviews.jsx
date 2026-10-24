@@ -79,14 +79,14 @@ function ReviewCard({ review, signedIn, requireAuth, onPatch }) {
 
     return (
         <article className="rv-card">
-            <header className="rv-top">
+            <div className="rv-top">
                 <span className="rv-avatar" aria-hidden="true">{initialOf(author)}</span>
                 <div className="rv-who">
                     <strong>{author}</strong>
                     <span className="cm-muted">{formatDate(review.createdAt)}</span>
                 </div>
                 <Stars value={review.rating} />
-            </header>
+            </div>
 
             {product && (
                 <Link className="rv-product" to={`/products/${product._id}`}>
@@ -212,7 +212,7 @@ function Reviews() {
 
     return (
         <main className="community-page">
-            <header className="cm-header">
+            <div className="cm-header">
                 <span className="cm-eyebrow">Community</span>
                 <h1>Customer reviews</h1>
                 <p className="cm-muted">
@@ -226,7 +226,7 @@ function Reviews() {
                         )}
                     </div>
                 )}
-            </header>
+            </div>
 
             <div className="rv-toolbar">
                 <div className="rv-chips" role="group" aria-label="Filter by rating">

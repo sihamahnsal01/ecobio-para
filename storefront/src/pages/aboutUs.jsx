@@ -28,7 +28,7 @@ const VALUES = [
     {
         icon: 'fa-regular fa-heart',
         title: 'Care First',
-        text: `We treat every customer like a neighbor walking into our ${StoreDetails.tagline} \u2014 with patience and honesty.`
+        text: `We treat every customer like a neighbor walking into our ${StoreDetails.tagline} — with patience and honesty.`
     },
 ]
 
@@ -49,7 +49,7 @@ function AboutUs() {
                 <p className="about-hero-text">
                     {StoreDetails.name} started as a single {StoreDetails.tagline} counter in {StoreDetails.address.country} in 2024.
                     Today we help thousands of customers across Morocco access certified
-                    health, beauty, and wellness products \u2014 backed by real {StoreDetails.tagline} expertise.
+                    health, beauty, and wellness products — backed by real {StoreDetails.tagline} expertise.
                 </p>
             </section>
 
@@ -72,7 +72,7 @@ function AboutUs() {
                     <h2>From a neighborhood counter to a trusted online {StoreDetails.tagline}</h2>
                     <p>
                         Our founder, a licensed pharmacist, opened {StoreDetails.name} to give her
-                        {StoreDetails.address.country} neighborhood honest, unhurried health advice \u2014 something she
+                        {StoreDetails.address.country} neighborhood honest, unhurried health advice — something she
                         felt was missing from larger chains.
                     </p>
                     <p>
@@ -111,7 +111,8 @@ function AboutUs() {
                     {TEAM.map((m) => (
                         <div className="team-card" key={m.name}>
                             <div className="team-photo">
-                                <img src={m.image} alt={m.name} />
+                                <span aria-hidden="true">{m.name.replace(/^Dr\.\s*/, '').split(' ').map((w) => w[0]).join('').slice(0, 2)}</span>
+                                <img src={m.image} alt={m.name} onError={(e) => { e.currentTarget.style.display = 'none' }} />
                             </div>
                             <p className="team-name">{m.name}</p>
                             <p className="team-role">{m.role}</p>

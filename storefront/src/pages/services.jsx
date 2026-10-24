@@ -24,7 +24,7 @@ const SERVICES = [
     {
         icon: 'fa-solid fa-pills',
         title: 'Prescription Refill Reminders',
-        text: 'Never run out \u2014 we\u2019ll remind you by email or SMS when it\u2019s time to reorder recurring medications.',
+        text: 'Never run out — we’ll remind you by email or SMS when it’s time to reorder recurring medications.',
         tag: 'Free',
     },
     {
@@ -44,7 +44,7 @@ const SERVICES = [
 const STEPS = [
     { step: '01', title: 'Choose a service', text: 'Pick a consultation, health check, or subscription that fits your needs.' },
     { step: '02', title: 'Book or order online', text: 'Reserve a time slot in-store or complete your order in a few clicks.' },
-    { step: '03', title: 'Get expert care', text: 'A licensed pharmacist handles your request \u2014 in person, online, or at your door.' },
+    { step: '03', title: 'Get expert care', text: 'A licensed pharmacist handles your request — in person, online, or at your door.' },
 ]
 
 function Services() {
@@ -56,7 +56,7 @@ function Services() {
                 <h1>{StoreDetails.name} services built around you</h1>
                 <p className="services-hero-text">
                     Beyond products on a shelf, {StoreDetails.name} offers real para-pharmacist
-                    expertise \u2014 consultations, health checks, and delivery designed
+                    expertise — consultations, health checks, and delivery designed
                     to fit your life.
                 </p>
             </section>

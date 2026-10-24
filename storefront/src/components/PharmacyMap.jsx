@@ -3,12 +3,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import '../assets/styles/leaflet.css'
 import L from 'leaflet'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
-import markerSDHow from 'leaflet/dist/images/marker-shadow.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import StoreDetails from '../data/storeDetails.json'
 
 const icon = L.icon({
     iconUrl: markerIcon,
-    sDHowUrl: markerSDHow,
+    shadowUrl: markerShadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
 })

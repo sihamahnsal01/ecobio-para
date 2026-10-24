@@ -4,7 +4,7 @@
     aspect-ratio: 4 / 3;
     border-radius: 15px;
     overflow: hidden;
-    filter: drop-sDHow(2px 1px 10px #00000063);
+    filter: drop-shadow(2px 1px 10px #00000063);
 
         .about-story-image .leaflet-container {
             width: 100%;
@@ -21,7 +21,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-sDHow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             text-decoration: none;
             display: inline-flex;
             align-items: center;

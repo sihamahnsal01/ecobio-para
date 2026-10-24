@@ -1,14 +1,3 @@
-:root {
-  --green-Primery: #D8F0E5;
-  --darckGreen-sacendery: #3C4D3C;
-  --bestseller-background: #FEF3C7;
-  --bestseller-text: #B45309;
-  --bg-color: var(--green-Primery);
-  --text-color: var(--darckGreen-sacendery);
-  --glass-bg: rgba(255, 255, 255, 0.42);
-  --input-bg: rgba(253, 255, 254, 0.36);
-  --white: #ffffff;
-}
 
 /* Slide-Over Dark Backdrop */
 .cart-overlay {
@@ -46,7 +35,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
-  box-sDHow: -8px 0 32px 0 rgba(60, 77, 60, 0.15);
+  box-shadow: -8px 0 32px 0 rgba(60, 77, 60, 0.15);
   transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
   display: flex;
@@ -265,7 +254,7 @@
   justify-content: center;
   gap: 8px;
   background-color: var(--darckGreen-sacendery);
-  color: var(--white);
+  color: var(--on-accent, #fff);
   border: none;
   padding: 14px;
   border-radius: 10px;

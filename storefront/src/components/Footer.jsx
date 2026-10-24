@@ -114,7 +114,7 @@ function Footer() {
                 <nav className="footer-col" aria-label="Customer care">
                     <h4 className="footer-heading">Customer care</h4>
                     <ul className="footer-list">
-                        <li><NavLink to="/orders">Track your order</NavLink></li>
+                        <li><NavLink to="/account/orders">Track your order</NavLink></li>
                         <li>
                             {user ? (
                                 <button type="button" className="footer-account-link" onClick={logout}>Logout</button>
@@ -126,6 +126,8 @@ function Footer() {
                         <li><NavLink to="/AboutUs">About us</NavLink></li>
                         <li><NavLink to="/privacy-policy">Privacy Policy</NavLink></li>
                         <li><NavLink to="/aboutUs#about-team">Terms</NavLink></li>
+                        <li><NavLink to="/Wishlist">Wishlist</NavLink></li>
+                        <li><NavLink to="/Reviews">Reviews</NavLink></li>
                     </ul>
                 </nav>
 
@@ -181,7 +183,7 @@ function Footer() {
                     Certified products &middot; Secure payments &middot; Fast delivery
                 </p>
                 <div className="footer-icons">
-                    <NavLink to="/wishlist" className="footer-icon-btn" aria-label="My wishlist" title="My wishlist">
+                    <NavLink to="/account/wishlist" className="footer-icon-btn" aria-label="My wishlist" title="My wishlist">
                         <i className="fa-regular fa-heart"></i>
                         {wishlistCount > 0 && (
                             <span className="footer-icon-count">{wishlistCount > 99 ? '99+' : wishlistCount}</span>

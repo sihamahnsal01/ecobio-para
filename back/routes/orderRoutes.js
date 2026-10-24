@@ -5,6 +5,7 @@ import {
     createOnlinePayment,
     claimGuestOrders,
     getMyOrders,
+    cancelMyOrder,
     getOrderById,
     getAllOrders,
     updateOrderStatus,
@@ -19,6 +20,7 @@ router.post('/quote', quoteOrder)
 router.post('/claim', protect, claimGuestOrders)
 router.post('/:id/pay', createOnlinePayment)
 router.get('/my', protect, getMyOrders)
+router.post('/:id/cancel', protect, cancelMyOrder)
 router.get('/:id', protect, getOrderById)
 
 // Admin-only
