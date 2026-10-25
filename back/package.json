@@ -8,11 +8,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "node server.js",
-    "seed": "node utils/seed.js"
+    "seed": "node utils/seed.js",
+    "migrate-images": "node utils/migrateImages.js"
   },
   "dependencies": {
     "axios": "^1.19.0",
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
